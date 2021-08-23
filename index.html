@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora IMC</title>
+  <style>
+    form {
+      display: flex;
+      flex-direction: column;
+      background-color: slategray;
+      max-width: 400px;
+      margin: auto;
+      border-radius: 5px;
+      border: none;
+
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+
+    button {
+      display: flex;
+      flex-direction: column;
+      background-color: crimson;
+      box-shadow: none;
+      padding: 4px 10px;
+      border: 1px solid rgb(89, 89, 90);
+      border-radius: 5px;
+
+    }
+
+    .alert {
+      display: flex;
+      border: 4px solid crimson;
+    }
+
+    fieldset {
+      border: none;
+
+    }
+  </style>
+
+  <script type="text/javascript">
+    function CalculoIMC() {
+      var formulario = document.getElementById("formulario");
+
+      var kilos = +formulario.kilos.value;
+
+      var centimetros = +formulario.centimetros.value;
+
+      var altura = (centimetros) / 100;
+
+      var imc = kilos / (altura * altura);
+
+      if (!kilos) {
+        alert('Preencha seu peso em kg');
+        formulario.kilos.classList.add('alert');
+        return formulario.kilos.focus();
+      }
+
+      if (!centimetros) {
+        alert('Preencha sua altura em cm');
+        formulario.centimetros.classList.add('alert');
+        return formulario.centimetros.focus();
+      }
+
+      formulario.imc.value = imc.toFixed(2);
+
+
+      if (imc < 20) {
+        alert('Você esta abaixo do peso.');
+
+      } else if (imc <= 25) {
+        alert('Peso Ideal');
+
+      } else if (imc <= 30) {
+        alert('Sobrepeso');
+
+      } else if (imc <= 35) {
+        alert('Obesidade Moderada');
+
+      } else if (imc <= 40) {
+        alert('Obesidade Severa');
+
+      } else if (imc <= 50) {
+        alert('Obesidade Morbida');
+      } else {
+        alert('Gordo');
+      }
+    }
+
+    function digitou(evento) {
+      evento.target.classList.remove('alert')
+    }
+
+  </script>
+</head>
+
+<body>
+  <form id="formulario">
+    <fieldset>
+      <legend>Calculo IMC</legend>
+
+      <div class="campo">
+        <label for="kilos">Kilos:</label>
+        <input oninput="digitou(event);" name="kilos" type="text" />
+      </div>
+
+      <div class="campo">
+        <label for="centimetros">centimetros:</label>
+        <input oninput="digitou(event);" name="centimetros" type="text" />
+      </div>
+
+      <div class="campo">
+        <label for="imc">imc:</label>
+        <input name="imc" type="text" disabled="disabled" />
+      </div>
+
+      <button type="button" onclick="CalculoIMC();">Calcular</button>
+
+
+    </fieldset>
+  </form>
+</body>
+
+</html>
